@@ -929,6 +929,24 @@ class JamaClient:
         JamaClient.__handle_response_status(response)
         return response.json()['data']
 
+    def get_test_groups(self, test_plan_id):
+        """
+        This method will return JSON data about test groups attached to the given test plan
+        Args:
+            test_plan_id: the id of the test plan
+
+        Returns: JSON data about test groups attached to the given test plan
+
+        """
+        resource_path = 'testplans/' + str(test_plan_id) + '/testgroups'
+        try:
+            response = self.__core.get(resource_path)
+        except CoreException as err:
+            py_jama_rest_client_logger.error(err)
+            raise APIException(str(err))
+        JamaClient.__handle_response_status(response)
+        return response.json()['data']
+
     def delete_item(self, item_id):
         """
         This method will delete an item in Jama Connect.
